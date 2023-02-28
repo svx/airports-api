@@ -29,18 +29,18 @@ docker-build: ## Build production image
 .PHONY: docker-run
 docker-run: ## Start container locally on port 8080
 	@echo "$(YELLOW)==> Please open your browser localhost:8080$(RESET)"
-	@docker run --rm -p 8080:80 --name $(NAME) $(NAME):latest
+	@docker run --rm -p 8080:8080 --name api-test ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest
 
 .PHONY: release-build
 release-build: ## Build image for release
 	@docker build --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:${GIT_HASH} .
 
 .PHONY: push
-push:
+push: ## Push to Docker Hub
 	@docker push ${DOCKER_USERNAME}/${APPLICATION_NAME}:${GIT_HASH}
 
 .PHONY: release
-release:
+release: ## Release on Docker Hub
 	@docker pull ${DOCKER_USERNAME}/${APPLICATION_NAME}:${GIT_HASH}
 	@docker tag  ${DOCKER_USERNAME}/${APPLICATION_NAME}:${GIT_HASH} ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest
 	@docker push ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest

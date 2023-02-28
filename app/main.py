@@ -76,8 +76,8 @@ def fetch_planet(*, planet_id: int) -> dict:
         return result[0]
 
 
-@api_router.get('/healthcheck', summary="Check health", status_code=200)
-def perform_healthcheck():
+@api_router.get('/health', summary="Check health", status_code=200)
+def perform_health():
     '''
     Simple route for the GitHub Actions to healthcheck on.
     More info is available at:
@@ -92,7 +92,7 @@ def perform_healthcheck():
         'healtcheck': 'Everything OK!'
     }
     '''
-    return {'healthcheck': 'Everything is OK!'}
+    return {'health': 'Everything is OK!'}
 
 app.include_router(api_router)
 

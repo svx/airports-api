@@ -1,0 +1,45 @@
+# planet-api LoadBalancer Service
+# Enables the pods in a deployment to be accessible from outside the cluster
+apiVersion: v1
+kind: Service
+metadata:
+  name: planet-api-svc
+spec:
+  selector:
+    app: planet-api
+  ports:
+    - protocol: "TCP"
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
+
+---
+# planet-api Deployment
+# Defines the deployment of the app running in a pod on any worker node
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: planet-api
+  labels:
+    app: planet-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: planet-api
+  template:
+    metadata:
+      labels:
+        app: planet-api
+    spec:
+      containers:
+        - name: planet-api
+          image: testthedocs/planet-api:latest
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: IfNotPresent
+          #resources:
+            # You must specify requests for CPU to autoscale
+            # based on CPU utilization
+            #requests:
+              #cpu: "250m"

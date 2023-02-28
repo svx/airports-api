@@ -30,6 +30,10 @@ RUN python3 -m venv env && \
 # Copy project
 COPY --chown=$APP_USER:$APP_USER app/ app
 
+# Use a healthcheck,
+# so Docker knows if the API is still running ok or needs to be restarted
+HEALTHCHECK --interval=21s --timeout=3s --start-period=10s CMD curl --fail http://localhost:8080/health || exit 1
+
 # Start FastAPI
-CMD ["./env/bin/uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["./env/bin/uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
 #ENTRYPOINT [ "bash" ]

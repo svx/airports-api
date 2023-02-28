@@ -5,7 +5,7 @@ Basic example API based on [FastAPI](https://fastapi.tiangolo.com/ "link to Fast
 ## Run the container
 
 ```shell
-docker run --name api-example -p 8080:80 testthedocs/planet-api
+docker run --name api-example -p 8080:8080 testthedocs/planet-api
 ```
 
 Open your browser on [http://localhost:8080](http://localhost:8080 "Link to localhost on port 8080") to see the welcome message.
@@ -19,3 +19,9 @@ Open your browser on [http://localhost:8080](http://localhost:8080 "Link to loca
 ### Redoc
 
 [https://localhost:8080/redoc](http://localhost:8080/redocs "Link to Redoc based docs")
+
+## Kubernetes
+
+```shell
+kubectl apply -f api.yaml
+```
