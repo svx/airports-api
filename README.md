@@ -10,11 +10,11 @@ docker run --name api-example -p 8080:8080 testthedocs/planet-api
 
 Open your browser on [http://localhost:8080](http://localhost:8080 "Link to localhost on port 8080") to see the welcome message.
 
-## OpenAPI docs example
+## OpenAPI docs
 
 ### Swagger UI
 
-[http://localhost:8080/docs](htp://localhost:8080/docs "Link to Swagger UI based docs")
+[http://localhost:8080/docs](http://localhost:8080/docs "Link to Swagger UI based docs")
 
 ### Redoc
 
