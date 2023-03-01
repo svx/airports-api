@@ -1,5 +1,8 @@
 from fastapi import FastAPI, APIRouter
+from fastapi.openapi.models import Server
 
+server1 = Server(url="http://example.com", description="optional description")
+server2 = Server(url="http://test.com")
 
 PLANETS = [
     {
@@ -40,6 +43,30 @@ app = FastAPI(
     title="Planets API",
     description=description,
     version="0.0.1",
+    servers=[
+        {
+            "url": "http://localhost:8000",
+            "description": "Development Server"
+        },
+        {
+            "url": "https://mock.pstmn.io",
+            "description": "Mock Server",
+        }
+    ],
+    tags= [
+        {
+            "name": "Planets",
+            "description": "Operations with users. The **login** logic is also here.",
+        },
+        {
+            "name": "Utils",
+            "description": "Manage items. So _fancy_ they have their own docs.",
+            "externalDocs": {
+                "description": "Items external docs",
+                "url": "https://fastapi.tiangolo.com/",
+            },
+        },
+    ],
     terms_of_service="http://example.com/terms/",
     contact={
         "name": "Deadpoolio the Amazing",
@@ -55,17 +82,21 @@ app = FastAPI(
 api_router = APIRouter()
 
 
-@api_router.get("/", summary="Welcome", status_code=200)
+@api_router.get("/", name="Index", summary="Welcome", description="Here the description", status_code=200)
 def root() -> dict:
     """
     Receive root
     """
     return {"msg": "Welcome, to the world of planets!"}
 
+@api_router.get("/planets/", summary="List all planets", description="Here the description", tags=["Planets"])
+async def read_item(skip: int = 0, limit: int = 10):
+    return PLANETS[skip : skip + limit]
+
 
 # New addition, path parameter
 # https://fastapi.tiangolo.com/tutorial/path-params/
-@api_router.get("/planets/{planet_id}", summary="Receive planet by ID", status_code=200)
+@api_router.get("/planets/{planet_id}", summary="Receive planet by ID", status_code=200, tags=["Planets"])
 def fetch_planet(*, planet_id: int) -> dict:
     """
     Fetch a single planet by ID
@@ -76,8 +107,8 @@ def fetch_planet(*, planet_id: int) -> dict:
         return result[0]
 
 
-@api_router.get('/health', summary="Check health", status_code=200)
-def perform_health():
+@api_router.get('/health', summary="Check health", description="Check service status", status_code=200, tags=["Utils"])
+def perform_healthcheck():
     '''
     Simple route for the GitHub Actions to healthcheck on.
     More info is available at:
@@ -92,7 +123,7 @@ def perform_health():
         'healtcheck': 'Everything OK!'
     }
     '''
-    return {'health': 'Everything is OK!'}
+    return {'healthcheck': 'Everything is OK!'}
 
 app.include_router(api_router)
 
