@@ -24,14 +24,12 @@ COPY --chown=$APP_USER:$APP_USER requirements.txt .
 
 RUN python3 -m venv env && \
     ./env/bin/pip install --no-cache-dir -r requirements.txt
-#COPY requirements.txt .
-#RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy project
 COPY --chown=$APP_USER:$APP_USER app/ app
 
 # Use a healthcheck,
-# so Docker knows if the API is still running ok or needs to be restarted
+# So Docker knows if the API is still running ok or needs to be restarted
 HEALTHCHECK --interval=21s --timeout=3s --start-period=10s CMD curl --fail http://localhost:8080/health || exit 1
 
 # Start FastAPI
