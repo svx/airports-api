@@ -22,6 +22,15 @@ GIT_HASH ?= $(shell git log --format="%h" -n 1)
 help: ## This help message
 	@echo -e "$$(grep -hE '^\S+:.*##' $(MAKEFILE_LIST) | sed -e 's/:.*##\s*/:/' -e 's/^\(.\+\):\(.*\)/\\x1b[35m\1\\x1b[m:\2/' | column -c2 -t -s :)"
 
+.PHONY: start-api
+start-api: ## Starts API locally in dev mode
+# Todo: create env in pwd and adjust script
+	@.././env/bin/uvicorn app.main:app --reload
+
+.PHONY: save-openapi-spec
+save-openapi-spec: ## Saves OpenAPI spec locally
+	@curl -O localhost:8000/openapi.json
+
 .PHONY: docker-build
 docker-build: ## Build production image
 	@docker build --no-cache=true --tag ${DOCKER_USERNAME}/${APPLICATION_NAME} -f Dockerfile .
