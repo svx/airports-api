@@ -49,18 +49,16 @@ docker-run: ## Start container locally on port 8080
 	@echo "$(YELLOW)==> Please open your browser localhost:8080$(RESET)"
 	@docker run --rm -p 8080:8080 --name api-test ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest
 
-.PHONY: release-build
-release-build: ## Build images for Mac silicon and linux amd64
+.PHONY: release
+release: ## Build images for Mac silicon and linux amd64 and push to Docker Hub
 	@docker buildx build --push --platform linux/arm64/v8,linux/amd64 --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:${GIT_HASH} --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest .
 
 .PHONY: push
 push: ## Push to Docker Hub
 	@docker push ${DOCKER_USERNAME}/${APPLICATION_NAME}:${GIT_HASH}
 
-.PHONY: release
-release: ## Release on Docker Hub
-	@docker pull ${DOCKER_USERNAME}/${APPLICATION_NAME}:${GIT_HASH}
-	@docker tag  ${DOCKER_USERNAME}/${APPLICATION_NAME}:${GIT_HASH} ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest
-	@docker push ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest
-
-	docker image push --all-tags registry-host:5000/myname/myimage
+# .PHONY: release
+# release: ## Release on Docker Hub
+# 	@docker pull ${DOCKER_USERNAME}/${APPLICATION_NAME}:${GIT_HASH}
+# 	@docker tag  ${DOCKER_USERNAME}/${APPLICATION_NAME}:${GIT_HASH} ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest
+# 	@docker push ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest
