@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
         - name: planet-api
-          image: testthedocs/planet-api:206c08e
+          image: testthedocs/planet-api:3f22f54
           ports:
             - containerPort: 8080
           imagePullPolicy: IfNotPresent
