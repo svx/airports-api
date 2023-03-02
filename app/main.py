@@ -1,8 +1,16 @@
 from fastapi import FastAPI, APIRouter
 from fastapi.openapi.models import Server
 
-server1 = Server(url="http://example.com", description="optional description")
-server2 = Server(url="http://test.com")
+tags_metadata = [
+    {
+        "name": "Planets",
+        "description": "General info about all planets supported by this API. ",
+    },
+    {
+        "name": "Utils",
+        "description": "API Utils, such as the health endpoint.",
+    },
+]
 
 PLANETS = [
     {
@@ -30,8 +38,6 @@ This API helps you do awesome stuff. 🚀
 
 This is just an example API to learn more about Traefik Hub.
 
-## Planets
-
 List some planets:
 
 - Pluto
@@ -53,20 +59,7 @@ app = FastAPI(
             "description": "Mock Server",
         }
     ],
-    tags= [
-        {
-            "name": "Planets",
-            "description": "Operations with users. The **login** logic is also here.",
-        },
-        {
-            "name": "Utils",
-            "description": "Manage items. So _fancy_ they have their own docs.",
-            "externalDocs": {
-                "description": "Items external docs",
-                "url": "https://fastapi.tiangolo.com/",
-            },
-        },
-    ],
+    openapi_tags=tags_metadata,
     terms_of_service="http://example.com/terms/",
     contact={
         "name": "Deadpoolio the Amazing",
@@ -82,14 +75,14 @@ app = FastAPI(
 api_router = APIRouter()
 
 
-@api_router.get("/", name="Index", summary="Welcome", description="Here the description", status_code=200)
+@api_router.get("/", name="Index", summary="Welcome", description="Welcome message", status_code=200)
 def root() -> dict:
     """
     Receive root
     """
     return {"msg": "Welcome, to the world of planets!"}
 
-@api_router.get("/planets/", summary="List all planets", description="Here the description", tags=["Planets"])
+@api_router.get("/planets/", summary="List all planets", description="Overview of all planets supported by this API.", tags=["Planets"])
 async def read_item(skip: int = 0, limit: int = 10):
     return PLANETS[skip : skip + limit]
 
