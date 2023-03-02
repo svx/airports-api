@@ -35,9 +35,10 @@ save-openapi-spec: ## Saves OpenAPI spec locally
 serve-openapi-docs: ## Starts redoc container serving the OpenAPI spec on port 8080
 	@docker run -p 8080:80 -e SPEC_URL=https://raw.githubusercontent.com/svx/basic-planets-api/main/openapi.json redocly/redoc
 
-.PHONY: serve-swagger-ui-docs
-serve-swagger-ui-docs: ## Starts Swagger UI serving the OpenAPI spec on port 8080
-	@docker run -p 80:8080 -e SWAGGER_JSON_URL=https://raw.githubusercontent.com/svx/basic-planets-api/main/openapi.json swaggerapi/swagger-ui
+# swaggerapi/swagger-ui currently does not support mac silicon
+# .PHONY: serve-swagger-ui-docs
+# serve-swagger-ui-docs: ## Starts Swagger UI serving the OpenAPI spec on port 8080
+# 	@docker run -p 80:8080 -e SWAGGER_JSON_URL=https://raw.githubusercontent.com/svx/basic-planets-api/main/openapi.json swaggerapi/swagger-ui
 
 .PHONY: docker-build
 docker-build: ## Build production image
