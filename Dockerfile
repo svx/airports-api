@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 # Based on https://testdriven.io/blog/fastapi-docker-traefik/
 FROM python:3.11.1-slim
 
