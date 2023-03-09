@@ -1,11 +1,13 @@
-# Basic Planet API
+# Planet API
 
-Basic example API based on [FastAPI](https://fastapi.tiangolo.com/ "link to FastAPI website").
+Example API based on [FastAPI](https://fastapi.tiangolo.com/ "link to FastAPI website").
 
 ## Requirements
 
+- [Python 3](https://www.python.org/ "Link to website of Python")
 - [Docker](https://www.docker.com/ "Link to the website of Docker")
 - [Kubernetes](https://kubernetes.io/ "Link to the website of Kubernetes") (optional)
+- [Postman](https://www.postman.com/ "Link to website of Postman") (optional)
 
 ## Run the container
 
@@ -23,12 +25,25 @@ Assuming that the container is running, visit one of the URLs below to browse th
 
 [http://localhost:8080/docs](http://localhost:8080/docs "Link to Swagger UI based docs")
 
+![Swagger UI](/docs/assets/swagger-ui.png "Swagger UI")
+
 ### Redoc
 
-[https://localhost:8080/redoc](http://localhost:8080/redocs "Link to Redoc based docs")
+[http://localhost:8080/redoc](http://localhost:8080/redoc "Link to Redoc based docs")
+
+![Redoc](/docs/assets/redoc.png "Redoc")
 
 ## Kubernetes
+
+Use `kubectl` to deploy the API to a Kubernetes cluster.
 
 ```shell
 kubectl apply -f api.yaml
 ```
+
+## Postman
+
+You can use Postman for sending API requests.
+
+![Postman](/docs/assets/postman.png "Postman")
+
