@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 # Based on https://testdriven.io/blog/fastapi-docker-traefik/
-FROM python:3.11.1-slim
+FROM python:3.11.4-slim
 
 ENV APP_HOME=/src
 ENV APP_USER=appuser
@@ -27,7 +27,7 @@ RUN python3 -m venv env && \
     ./env/bin/pip install --no-cache-dir -r requirements.txt
 
 # Copy project
-COPY --chown=$APP_USER:$APP_USER app/ app
+COPY --chown=$APP_USER:$APP_USER app/v1 app
 
 # Use a healthcheck,
 # So Docker knows if the API is still running ok or needs to be restarted
