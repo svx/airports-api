@@ -20,7 +20,7 @@ spec:
 # Below two are needed for API versioning through the UI
 
 ---
-# Airports-api LoadBalancer Service
+# Airports API LoadBalancer Service
 # Enables the pods in a deployment to be accessible from outside the cluster
 apiVersion: v1
 kind: Service
@@ -37,7 +37,7 @@ spec:
   type: LoadBalancer
 
 ---
-# Airports-api-v1 Deployment
+# Airports API v1 Deployment
 # Defines the deployment of the app running in a pod on any worker node
 apiVersion: apps/v1
 kind: Deployment
