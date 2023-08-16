@@ -18,7 +18,7 @@ spec:
       number: 8080 #Port of the service
 
 ---
-# airports-api LoadBalancer Service
+# Airports-api LoadBalancer Service
 # Enables the pods in a deployment to be accessible from outside the cluster
 apiVersion: v1
 kind: Service
@@ -35,7 +35,7 @@ spec:
   type: LoadBalancer
 
 ---
-# airports-api-v1 Deployment
+# Airports-api-v1 Deployment
 # Defines the deployment of the app running in a pod on any worker node
 apiVersion: apps/v1
 kind: Deployment
