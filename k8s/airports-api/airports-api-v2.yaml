@@ -56,7 +56,7 @@ spec:
     spec:
       containers:
         - name: airports-api-v2
-          image: testthedocs/airports-api-v2:$5208f6a
+          image: testthedocs/airports-api-v2:5208f6a
           ports:
             - containerPort: 8080
           imagePullPolicy: IfNotPresent
