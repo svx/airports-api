@@ -10,7 +10,7 @@ spec:
   pathPrefix: "/airports"
   service:
     openApiSpec:
-      url: https://raw.githubusercontent.com/svx/airports-api/airports-api/openapi-v1.json
+      url: https://raw.githubusercontent.com/svx/airports-api/airports-api/openapi-v2.json
       port:
         number: 3000
     name: airports-api-v2-api-svc #Name of the service

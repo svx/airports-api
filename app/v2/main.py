@@ -1,5 +1,6 @@
 from fastapi import FastAPI, APIRouter
 from fastapi.openapi.models import Server
+from fastapi.openapi.utils import get_openapi
 
 tags_metadata = [
     {
@@ -145,6 +146,8 @@ def custom_openapi():
     }
     app.openapi_schema = openapi_schema
     return app.openapi_schema
+
+app.openapi = custom_openapi
 
 @api_router.get("/", name="Index", summary="Welcome", description="Welcome message", status_code=200, tags=["About"])
 def root() -> dict:
