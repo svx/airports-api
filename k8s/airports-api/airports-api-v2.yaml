@@ -13,9 +13,9 @@ spec:
       url: https://raw.githubusercontent.com/svx/airports-api/airports-api/openapi-v1.json
       port:
         number: 3000
-    name: airports-app-v2
+    name: airports-api-v2-api-svc #Name of the service
     port:
-      number: 3000
+      number: 8080 #Port of the service
 
 ---
 # airports-api LoadBalancer Service
