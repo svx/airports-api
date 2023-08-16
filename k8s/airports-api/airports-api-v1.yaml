@@ -13,7 +13,7 @@ spec:
       url: https://raw.githubusercontent.com/svx/airports-api/airports-api/openapi-v1.json
       port:
         number: 3000
-    name: airports-api-v1-api-svc # Name of teh service
+    name: airports-api-v1-api-svc # Name of the service
     port:
       number: 8080 #Port of the service
 
