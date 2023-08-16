@@ -1,0 +1,9 @@
+---
+apiVersion: hub.traefik.io/v1alpha1
+kind: APIPortal
+metadata:
+  name: demo-travel-portal
+spec:
+  title: "Traefik Airlines Travel"
+  description: "API Demo Portal For Travel APIs"
+  apiGateway: travel-gateway

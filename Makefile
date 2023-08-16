@@ -10,7 +10,7 @@ YELLOW=`tput setaf 3`
 
 # Vars
 DOCKER_USERNAME ?= testthedocs
-APPLICATION_NAME ?= airports-api-v1
+APPLICATION_NAME ?= airports-api
 DOCKER := $(bash docker)
 GIT_HASH ?= $(shell git log --format="%h" -n 1)
 
@@ -70,15 +70,15 @@ docker-run: ## Start container locally on port 8080
 	@echo "$(YELLOW)==> Please open your browser localhost:8080$(RESET)"
 	@docker run --rm -p 8080:8080 --name api-test ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest
 
-.PHONY: release
-release: ## Build images for Apple silicon and Linux amd64 and push to Docker Hub of API v1
+.PHONY: release-v1
+release-v1: ## Build images for Apple silicon and Linux amd64 and push to Docker Hub of API v1
 	@echo "$(YELLOW)==> Building images and pushing them to Docker Hub$(RESET)"
-	@docker buildx build --push --platform linux/arm64/v8,linux/amd64 --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:${GIT_HASH} --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest .
+	@docker buildx build --push --platform linux/arm64/v8,linux/amd64 --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}-v1:${GIT_HASH} --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest -f v1.Dockerfile
 
-# .PHONY: release-v2
-# release-v2: ## Build images for Apple silicon and Linux amd64 and push to Docker Hub of API v1
-# 	@echo "$(YELLOW)==> Building images and pushing them to Docker Hub$(RESET)"
-# 	@docker buildx build --push --platform linux/arm64/v8,linux/amd64 --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:${GIT_HASH} --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest .
+.PHONY: release-v2
+release-v2: ## Build images for Apple silicon and Linux amd64 and push to Docker Hub of API v1
+	@echo "$(YELLOW)==> Building images and pushing them to Docker Hub$(RESET)"
+	@docker buildx build --push --platform linux/arm64/v8,linux/amd64 --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}-v2:${GIT_HASH} --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest f v2.Dockerfile
 
 .PHONY: push
 push: ## Push to Docker Hub
