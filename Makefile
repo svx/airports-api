@@ -27,18 +27,14 @@ dev-setup: ## Create virtualenv and install requirements
 	@./env/bin/pip install -r requirements.txt
 
 .PHONY: dev-start-api-v1
-dev-start-api-v1: ## Starts API locally in dev mode
+dev-start-api-v1: ## Starts API v1 locally in dev mode on port 8000
 	@echo "$(YELLOW)==> Starting API locally in dev mode$(RESET)"
 	@./env/bin/uvicorn app.v1.main:app --reload
 
 .PHONY: dev-start-api-v2
-dev-start-api-v2: ## Starts API locally in dev mode
+dev-start-api-v2: ## Starts API v2 locally in dev mode on port 9000
 	@echo "$(YELLOW)==> Starting API locally in dev mode$(RESET)"
 	@./env/bin/uvicorn app.v2.main:app --port 9000 --reload
-
-# .PHONY: save-openapi-spec
-# save-openapi-spec: ## Saves OpenAPI spec locally
-# 	@curl -O localhost:8000/openapi.json
 
 .PHONY: save-openapi-spec-v1
 save-openapi-spec-v1: ## Saves OpenAPI spec of v1 locally
@@ -48,15 +44,6 @@ save-openapi-spec-v1: ## Saves OpenAPI spec of v1 locally
 save-openapi-spec-v2: ## Saves OpenAPI spec of v2 locally
 	@curl -o openapi-v2.json localhost:9000/openapi.json
 
-# .PHONY: serve-redoc-docs
-# serve-openapi-docs: ## Starts redoc container serving the OpenAPI spec on port 8080
-# 	@docker run -p 8080:80 -e SPEC_URL=https://raw.githubusercontent.com/svx/basic-planets-api/main/openapi.json redocly/redoc
-
-# swaggerapi/swagger-ui currently does not support Apple silicon
-# .PHONY: serve-swagger-ui-docs
-# serve-swagger-ui-docs: ## Starts Swagger UI serving the OpenAPI spec on port 8080
-# 	@docker run -p 80:8080 -e SWAGGER_JSON_URL=https://raw.githubusercontent.com/svx/basic-planets-api/main/openapi.json swaggerapi/swagger-ui
-
 .PHONY: docker-build-v1
 docker-build-v1: ## Build production image of API v1
 	@docker build --no-cache=true --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}-v1 -f v1.Dockerfile .
@@ -65,10 +52,15 @@ docker-build-v1: ## Build production image of API v1
 docker-build-v2: ## Build production image of API v2
 	@docker build --no-cache=true --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}-v2 -f v2.Dockerfile .
 
-.PHONY: docker-run
-docker-run: ## Start container locally on port 8080
+.PHONY: docker-run-v1
+docker-run-v1: ## Start container locally on port 8080
 	@echo "$(YELLOW)==> Please open your browser localhost:8080$(RESET)"
-	@docker run --rm -p 8080:8080 --name api-test ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest
+	@docker run --rm -p 8080:8080 --name api-test ${DOCKER_USERNAME}/${APPLICATION_NAME}-v1:latest
+
+.PHONY: docker-run-v2
+docker-run-v2: ## Start container locally on port 8090
+	@echo "$(YELLOW)==> Please open your browser localhost:8080$(RESET)"
+	@docker run --rm -p 8090:8080 --name api-test ${DOCKER_USERNAME}/${APPLICATION_NAME}-v2:latest
 
 .PHONY: release-v1
 release-v1: ## Build images for Apple silicon and Linux amd64 and push to Docker Hub of API v1
