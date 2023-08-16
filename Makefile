@@ -65,12 +65,12 @@ docker-run-v2: ## Start container locally on port 8090
 .PHONY: release-v1
 release-v1: ## Build images for Apple silicon and Linux amd64 and push to Docker Hub of API v1
 	@echo "$(YELLOW)==> Building images and pushing them to Docker Hub$(RESET)"
-	@docker buildx build --push --platform linux/arm64/v8,linux/amd64 --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}-v1:${GIT_HASH} --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest -f v1.Dockerfile
+	@docker buildx build -f v1.Dockerfile --push --platform linux/arm64/v8,linux/amd64 --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}-v1:${GIT_HASH} --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest .
 
 .PHONY: release-v2
 release-v2: ## Build images for Apple silicon and Linux amd64 and push to Docker Hub of API v1
 	@echo "$(YELLOW)==> Building images and pushing them to Docker Hub$(RESET)"
-	@docker buildx build --push --platform linux/arm64/v8,linux/amd64 --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}-v2:${GIT_HASH} --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest f v2.Dockerfile
+	@docker buildx build -f v2.Dockerfile --push --platform linux/arm64/v8,linux/amd64 --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}-v2:${GIT_HASH} --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest .
 
 .PHONY: push
 push: ## Push to Docker Hub
