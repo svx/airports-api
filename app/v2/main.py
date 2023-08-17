@@ -173,7 +173,7 @@ def fetch_airport(*, airport_id: int) -> dict:
     result = [airport for airport in AIRPORTS if airport["id"] == airport_id]
     if result:
         return result[0]
-    
+
 # New addition, query parameter
 # https://fastapi.tiangolo.com/tutorial/query-params/
 @api_router.get("/search/", summary="Search airport", description="Search airport by IATA", status_code=200,tags=["Airports"])
@@ -181,7 +181,7 @@ def search_recipes(
     keyword: Optional[str] = None, max_results: Optional[int] = 10
 ) -> dict:
     """
-    Search for airports based on iata code
+    Search for airports based on IATA code
     """
     if not keyword:
         # we use Python list slicing to limit results
