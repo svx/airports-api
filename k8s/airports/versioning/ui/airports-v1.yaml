@@ -1,6 +1,6 @@
 # Example files for API versioning through the UI.
-# A Service and a Deployment is needed.
-# The "umbrella" API will be created through the UI.
+# An API, a Service and a Deployment is needed.
+# This here is the Service definition used for the "umbrella" API which will be created through the UI.
 
 ---
 # Airports API LoadBalancer Service.
