@@ -1,6 +1,7 @@
 from fastapi import FastAPI, APIRouter
 from fastapi.openapi.models import Server
 from fastapi.openapi.utils import get_openapi
+from typing import Optional
 
 tags_metadata = [
     {
@@ -172,6 +173,23 @@ def fetch_airport(*, airport_id: int) -> dict:
     result = [airport for airport in AIRPORTS if airport["id"] == airport_id]
     if result:
         return result[0]
+    
+# New addition, query parameter
+# https://fastapi.tiangolo.com/tutorial/query-params/
+@api_router.get("/search/", summary="Search airport", description="Search airport by IATA", status_code=200,tags=["Airports"])
+def search_recipes(
+    keyword: Optional[str] = None, max_results: Optional[int] = 10
+) -> dict:
+    """
+    Search for airports based on iata code
+    """
+    if not keyword:
+        # we use Python list slicing to limit results
+        # based on the max_results query parameter
+        return {"results": AIRPORTS[:max_results]}
+
+    results = filter(lambda airport: keyword.lower() in airport["iata"].lower(), AIRPORTS)
+    return {"results": list(results)[:max_results]}
 
 @api_router.get('/health', summary="Check health", description="Check service status", status_code=200, tags=["Utils"])
 def perform_healthcheck():
