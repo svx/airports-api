@@ -21,7 +21,7 @@ spec:
 
 ---
 # Airports API v2 Deployment.
-# Defines the deployment of the app running in a pod on any worker node.
+# Defines the deployment of the app running in a Pod on any worker node.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
