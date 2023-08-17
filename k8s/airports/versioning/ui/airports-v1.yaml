@@ -1,0 +1,52 @@
+# Example files for API versioning through the UI.
+# A Service and a Deployment is needed.
+# The "umbrella" API will be created through the UI.
+
+---
+# Airports API LoadBalancer Service.
+# Enables the Pods in a deployment to be accessible from outside the cluster.
+apiVersion: v1
+kind: Service
+metadata:
+  name: airports-api-v1-api-svc
+  namespace: apps
+spec:
+  selector:
+    app: airports-api-v1
+  ports:
+    - protocol: "TCP"
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
+
+---
+# Airports API v1 Deployment
+# Defines the deployment of the app running in a pod on any worker node.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: airports-api-v1
+  namespace: apps
+  labels:
+    app: airports-api-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: airports-api-v1
+  template:
+    metadata:
+      labels:
+        app: airports-api-v1
+    spec:
+      containers:
+        - name: airports-api-v1
+          image: testthedocs/airports-api-v1:f19c56e
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: IfNotPresent
+          #resources:
+            # You must specify requests for CPU to autoscale
+            # based on CPU utilization
+            #requests:
+              #cpu: "250m"
