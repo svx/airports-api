@@ -17,4 +17,3 @@ Delete the related API object:
 Remove the service in the "apps" namespace:
 
 `kubectl delete svc airports-api-v2 -n apps`
-
