@@ -78,7 +78,7 @@ Assuming that the container is running, visit one of the URLs below to browse th
 Use `kubectl` to deploy the versioned API to a Kubernetes cluster.
 
 ```shell
-kubectl apply -f k8s/airports/versioning
+kubectl apply -f k8s/airports/versioning -R
 ```
 
 ## Examples
