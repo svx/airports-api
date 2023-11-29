@@ -18,6 +18,16 @@
         "type": "item",
         "title": "Get started",
         "uri": "docs/k8s.md"
-      }
+      },
+      {
+        "type": "item",
+        "title": "v1",
+        "uri": "openapi-v1.json"
+       },
+       {
+        "type": "item",
+        "title": "v2",
+        "uri": "openapi-v2.json"
+       }
     ]
 }
