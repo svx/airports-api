@@ -22,12 +22,12 @@
       {
         "type": "item",
         "title": "v1",
-        "uri": "openapi-v1.json"
+        "uri": "spec/openapi-v1.json"
        },
        {
         "type": "item",
         "title": "v2",
-        "uri": "openapi-v2.json"
+        "uri": "spec/openapi-v2.json"
        }
     ]
 }
