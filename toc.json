@@ -20,6 +20,10 @@
         "uri": "docs/k8s.md"
       },
       {
+        "type": "divider",
+        "title": "API"
+      },
+      {
         "type": "item",
         "title": "v1",
         "uri": "spec/openapi-v1.json"
