@@ -16,7 +16,7 @@
       },
       {
         "type": "item",
-        "title": "Get started",
+        "title": "Kubernetes",
         "uri": "docs/k8s.md"
       },
       {
