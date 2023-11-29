@@ -1,0 +1,23 @@
+{
+    "collapseTableOfContents": false,
+    "items": [
+      {
+        "type": "divider",
+        "title": "About"
+      },
+      {
+        "type": "item",
+        "title": "Get started",
+        "uri": "docs/get-started.md"
+      },
+      {
+        "type": "divider",
+        "title": "Infrastructure"
+      },
+      {
+        "type": "item",
+        "title": "Get started",
+        "uri": "docs/k8s.md"
+      }
+    ]
+}
